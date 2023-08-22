@@ -1,0 +1,126 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    background-color: #093a75;
+}
+
+.main-title {
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+}
+
+.login-title {
+    color: grey;
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.login-page {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+}
+
+.login-main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30rem;
+}
+
+.login-wrapper form {
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    width: 100%;
+    /* height: 20rem; */
+    border-radius: 5px;
+    padding: 2em;
+}
+
+input, button {
+    padding: 1em;
+    border: none;
+    outline: none;
+}
+
+button {
+    background: #093a75;
+    width: 100%;
+    color: #fff;
+    font-size: 0.9rem;
+    border-radius: 10px;
+}
+
+    button:hover {
+        cursor: pointer;
+    }
+
+label {
+    color: grey;
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 1em;
+}
+
+.form-input {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border: 1px solid #808080;
+    border-radius: 15px;
+}
+
+    .form-input input {
+        background: #e8f0fd;
+        flex-grow: 1;
+        border-radius: 0 15px 15px 0;
+    }
+
+    .form-input i {
+        font-size: 1.4rem;
+        background: #fff;
+        width: 8%;
+        margin-left: 0.4em;
+    }
+
+.input-extras {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.reset {
+    float: right;
+}
+
+label {
+    display: inline-block;
+}
+
+.input-extras p {
+    margin: 0;
+}
+
+.main-footer {
+    text-align: center;
+    color: #fff;
+}
+
+    .main-footer a {
+        color: #fff;
+    }
+
+    .main-footer #home {
+        color: #a4c9fb;
+    }

@@ -1,0 +1,13 @@
+﻿@inject NavigationManager NavigationManager
+@using Blazored.Toast
+@using Blazored.Toast.Services
+@inject IToastService ToastService
+
+@code {
+    protected override void OnInitialized()
+    {
+        ToastService.ShowError("You need to log in to access that page");
+        NavigationManager.NavigateTo("/login");
+    }
+
+}

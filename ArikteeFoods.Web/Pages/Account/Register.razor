@@ -1,0 +1,39 @@
+﻿@page "/register"
+@using ArikteeFoods.Web.Shared
+@layout AuthLayout
+
+<div class="login-page">
+    <div class="login-main">
+        <h3 class="main-title">Ariktee Foods</h3>
+        <div class="login-wrapper">
+            <form action="">
+                <h5 class="login-title">REGISTER</h5>
+                <div class="form-input-section">
+                    <label for="email">Email</label>
+                    <div class="form-input">
+                        <i class="fa-regular fa-envelope"></i>
+                        <input type="email" name="" id="email" required>
+                    </div>
+                </div>
+                <div class="form-input-section">
+                    <label for="password">Password</label>
+                    <a href="#" class="reset">Reset Password</a>
+                    <div class="form-input">
+                        <i class="fa-solid fa-key"></i>
+                        <input type="password" name="" id="password" minlength="8" required>
+                    </div>
+                </div>
+                <div class="btn-wrapper">
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+        <div class="main-footer">
+            <p>I already have an Account? <a href="/register">Log In</a></p>
+        </div>
+    </div>
+</div>
+
+@code {
+
+}

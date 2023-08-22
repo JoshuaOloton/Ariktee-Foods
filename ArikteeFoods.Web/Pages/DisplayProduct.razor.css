@@ -1,0 +1,24 @@
+﻿img {
+    width: 250px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    transition: transform 0.2s ease-in;
+}
+
+
+a:hover img {
+    transform: scale(1.01);
+}
+
+.card {
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.1);
+    transition: box-shadow 0.2s ease-in;
+}
+
+a:hover .card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 4px 8px 0 rgba(0,0,0,0.19);
+}
+
+.price {
+    color: green;
+}

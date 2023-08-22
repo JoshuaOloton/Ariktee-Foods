@@ -1,0 +1,46 @@
+﻿@page "/login"
+@using ArikteeFoods.Web.Shared
+@using ArikteeFoods.Web.Models
+@using Blazored.LocalStorage
+@using Blazored.Toast
+@using Blazored.Toast.Services
+@layout AuthLayout
+
+<div class="login-page">
+    <div class="login-main">
+        <h3 class="main-title">Ariktee Foods</h3>
+        <div class="login-wrapper">
+            <EditForm Model="@userLogin" OnSubmit="LoginUser">
+                @*<DataAnnotationsValidator />
+*@                <div>
+                    <h5 class="login-title">Welcome Back</h5>
+                    <p class="login-description">Sign in with your email address and Password.</p>
+                    <div class="form-input-section">
+                        <label for="email">Email</label>
+                        <div class="form-input">
+                            <i class="fa-regular fa-envelope"></i>
+                            <InputText @bind-Value="userLogin.Email" id="email  " />
+                            <ValidationMessage For="(() => userLogin.Email)" />
+                        </div>
+                    </div>
+                    <div class="form-input-section">
+                        <label for="password">Password</label>
+                        <div class="form-input">
+                            <i class="fa-solid fa-key"></i>
+                            <InputText @bind-Value="userLogin.Password" id="password" type="password" />
+                            <ValidationMessage For="(() => userLogin.Password)" />
+                        </div>
+                    </div>
+                    <div class="btn-wrapper">
+                        <button type="submit">Login</button>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+        <div class="main-footer">
+            <a href="/">Home</a>
+            <p>I do not have an Account? <a href="/register">Sign up</a></p>
+        </div>
+    </div>
+</div>
+
