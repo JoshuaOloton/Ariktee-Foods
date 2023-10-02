@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ArikteeFoods.API.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
@@ -59,23 +59,23 @@ namespace ArikteeFoods.API.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct([FromBody]ProductToAddDto productToAddDto)
-        {
-            try
-            {
-                var newProduct = await _productRepository.AddProduct(productToAddDto);
-                if (newProduct == null)
-                {
-                    return NotFound();
-                }
-                var newProductDto = newProduct.ConvertToDto();
-                return CreatedAtAction(nameof(GetProduct), new { Id = newProduct.Id }, newProduct);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
-        }
+        //[HttpPost]
+        //public async Task<ActionResult<Product>> PostProduct([FromBody] ProductToAddDto productToAddDto)
+        //{
+        //    try
+        //    {
+        //        var newProduct = await _productRepository.AddProduct(productToAddDto);
+        //        if (newProduct == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //        var newProductDto = newProduct.ConvertToDto();
+        //        return CreatedAtAction(nameof(GetProduct), new { Id = newProduct.Id }, newProduct);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        //    }
+        //}
     }
 }

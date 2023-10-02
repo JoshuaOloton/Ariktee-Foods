@@ -1,0 +1,47 @@
+﻿@page "/"
+@using Blazored.Toast
+@using Blazored.Toast.Services
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.Authorization
+@layout IndexLayout
+
+@if (!FoodProducts.Any() && ErrorMessage == null)
+{
+    <LoadingSpinner />
+}
+else if (ErrorMessage != null)
+{
+    <DisplayError ErrMessage="@ErrorMessage" />
+}
+else
+{
+    <h3 class="mb-2">Products</h3>
+    <div class="text-center">
+        <input @bind-value="@searchText" @bind-value:event="oninput"
+               class="mb-4"
+               placeholder="Search by Product Name" />
+    </div>
+    if (FoodProducts.Any() && !FilteredProducts.Any())
+    {
+        <p class="text-center mt-3"><i>No products found.</i></p>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var product in FilteredProducts)
+            {
+                <div class="col-md-6 col-lg-4 col-xl-3 mb-2">
+                    <a href="/Product/@product.Id" style="color: #112060;">
+                        <div class="card">
+                            <div class="card-body">
+                                <img src="@product.ProductImageUrl" alt="@product.ProductName image" class="img-fluid" />
+                                <h5 class="card-title mt-2">@product.ProductName</h5>
+                                <p>From ₦@GetBasePrice(product)</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    }
+}

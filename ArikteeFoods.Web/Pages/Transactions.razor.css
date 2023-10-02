@@ -1,0 +1,61 @@
+﻿table {
+    width: 100%;
+}
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tr:hover {
+    background-color: #ddd;
+}
+
+table th {
+    background-color: #253972;
+    background-color: #06285b;
+    color: #fff;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+@media only screen and (max-width: 500px) {
+/*    table tr, table td {
+        font-size: 13px;
+    }*/
+
+    td {
+        display: grid;
+        grid-template-columns: 15ch auto;
+    }
+    td:last-of-type {
+        grid-template-columns: auto;
+    }
+    tr:first-child {
+        padding-top: 2em;
+    }
+    tr:last-child {
+        padding-bottom: 2em;
+    }
+    th {
+        display: none;
+    }
+    td::before {
+        font-weight: bold;
+    }
+    td:nth-of-type(1)::before {
+        content: "Order ID: ";
+    }
+    td:nth-of-type(2)::before {
+        content: "Subtotal: ";
+    }
+    td:nth-of-type(3)::before {
+        content: "Payment Date: ";
+    }
+    td:nth-of-type(4)::before {
+        content: "Status: ";
+    }
+}

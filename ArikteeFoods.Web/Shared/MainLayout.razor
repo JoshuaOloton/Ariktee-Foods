@@ -1,6 +1,15 @@
 ﻿@inherits LayoutComponentBase
+@using Blazored.LocalStorage
+@using Blazored.Modal
+@using Blazored.Modal.Services
 @using Blazored.Toast
 @using Blazored.Toast.Services
+@using Microsoft.AspNetCore.Components.Authorization
+@using ArikteeFoods.Web.Services.Contracts
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IAuthService AuthService
+@inject ILocalStorageService LocalStorage
+@inject NavigationManager NavigationManager
 
 <div class="page">
     <div class="sidebar">
@@ -9,7 +18,11 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            <CartIcon />
+            <a class="btn btn-danger" @onclick="SignOut">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Sign out
+            </a>
         </div>
 
         <article class="content px-4">
@@ -19,3 +32,37 @@
 </div>
 
 <BlazoredToasts />
+
+@code {
+    private AuthenticationState authenticationState;
+
+    protected async override Task OnInitializedAsync()
+    {
+        authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        if (authenticationState.User.Identity == null || !authenticationState.User.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("/login");
+        }
+    }
+
+
+    protected async void SignOut()
+    {
+        await LocalStorage.RemoveItemAsync("authToken");
+        await LocalStorage.RemoveItemAsync("Email Address");
+        await LocalStorage.RemoveItemAsync("Fullname");
+        await LocalStorage.RemoveItemAsync("UserId");
+
+        // Get the cookie to delete.
+        //var cookie = HttpContextAccessor.HttpContext.Request.Cookies["my-cookie"];
+
+        // Delete the cookie.
+        //HttpContextAccessor.HttpContext.Response.Cookies.Delete(cookie.Name);
+
+        // Trigger getauthenticationstate event
+        await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        AuthService.NewSignout = true;
+        StateHasChanged();
+        NavigationManager.NavigateTo("/");
+    }
+}

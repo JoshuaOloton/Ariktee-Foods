@@ -1,0 +1,42 @@
+﻿@page "/transactions"
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize]
+
+<h4 class="mb-5">Order History</h4>
+
+@if (ShoppingCarts == null && ErrorMessage == null)
+{
+    <LoadingSpinner />
+}
+else if (ErrorMessage != null)
+{
+    <DisplayError />
+}
+else
+{
+    <table>
+        <tr>
+            <th>Order ID</th>
+            <th>Subtotal</th>
+            <th>Payment Date</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        @foreach (var cart in ShoppingCarts)
+        {
+            <tr>
+                <td data-cell="Order ID">#@cart.Id</td>
+                <td data-cell="Subtotal">₦@cart.SubTotal</td>
+                <td data-cell="Payment Date">@cart.PaymentDate</td>
+                <td data-cell="Status">@GetOrderStatus(cart.TransStatus)</td>
+                <td>
+                    <button class="btn btn-sm btn-primary m-1" @onclick="() => OpenTransactionDetails(cart.Id)">View</button>
+                    @if (cart.TransStatus == 0)
+                    {
+                        <button class="btn btn-sm btn-primary m-1" @onclick="GoToCheckout">Pay</button>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}

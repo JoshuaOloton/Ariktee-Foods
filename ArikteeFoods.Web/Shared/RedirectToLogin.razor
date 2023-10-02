@@ -1,12 +1,14 @@
 ﻿@inject NavigationManager NavigationManager
+@using ArikteeFoods.Web.Services.Contracts
 @using Blazored.Toast
 @using Blazored.Toast.Services
+@inject IAuthService AuthService
 @inject IToastService ToastService
 
 @code {
     protected override void OnInitialized()
     {
-        ToastService.ShowError("You need to log in to access that page");
+        AuthService.LoginRequired = true;
         NavigationManager.NavigateTo("/login");
     }
 

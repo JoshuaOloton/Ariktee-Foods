@@ -1,12 +1,14 @@
 using ArikteeFoods.API.Data;
 using ArikteeFoods.API.Repositories;
 using ArikteeFoods.API.Repositories.Contracts;
+using ArikteeFoods.API.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
+using Microsoft.AspNetCore.CookiePolicy;
+using Microsoft.JSInterop;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +35,7 @@ builder.Services.AddDbContext<ArikteeDbContext>(options =>
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddAuthentication().AddJwtBearer(options =>
 {
@@ -48,6 +51,23 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
     };
 });
 
+// configure cookie policy options
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+    //options.HttpOnly = HttpOnlyPolicy.Always;
+    //options.Secure = CookieSecurePolicy.Always;
+    options.ConsentCookie.IsEssential = true;
+    //options.CheckConsentNeeded = context => false;
+});
+
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://api.paystack.co/transaction/") });
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<HttpResponseExceptionFilter>();
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -61,7 +81,10 @@ app.UseCors(policy =>
     policy.WithOrigins("https://localhost:7028", "http://localhost:7028")
     .AllowAnyMethod()
     .AllowAnyHeader()
+    .AllowCredentials()
 );
+
+app.UseCookiePolicy();
 
 app.UseHttpsRedirection();
 

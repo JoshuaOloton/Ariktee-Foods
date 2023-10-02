@@ -1,0 +1,45 @@
+﻿@inherits LayoutComponentBase
+@using Blazored.LocalStorage
+@using Blazored.Modal
+@using Blazored.Modal.Services
+@using Blazored.Toast
+@using Blazored.Toast.Services
+@using Microsoft.AspNetCore.Components.Authorization
+@using ArikteeFoods.Web.Services.Contracts
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IAuthService AuthService
+@inject ILocalStorageService LocalStorage
+@inject NavigationManager NavigationManager
+
+<div class="page">
+    <main>
+        <div class="top-row px-4">
+            <a class="btn btn-primary" href="/login">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                Sign in
+            </a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+<BlazoredToasts />
+
+@code {
+    protected async void SignOut()
+    {
+        await LocalStorage.RemoveItemAsync("authToken");
+        await LocalStorage.RemoveItemAsync("Email Address");
+        await LocalStorage.RemoveItemAsync("Fullname");
+        await LocalStorage.RemoveItemAsync("UserId");
+
+        // Trigger getauthenticationstate event
+        await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        AuthService.NewSignout = true;
+        StateHasChanged();
+        NavigationManager.NavigateTo("/");
+    }
+}

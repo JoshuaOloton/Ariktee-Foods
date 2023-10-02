@@ -1,0 +1,24 @@
+﻿.paystack-logo {
+    color: #fff;
+    background-color: #092239;
+    display: flex;
+    justify-content: center;
+    padding: 1em 0;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.paystack-logo:hover {
+    transform: scale(1.01) translateY(1px);
+}
+
+label {
+    font-size: 0.9rem;
+}
+
+.address-select {
+    border: none;
+    width: 70%;
+}

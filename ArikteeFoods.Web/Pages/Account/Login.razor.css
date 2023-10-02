@@ -92,22 +92,20 @@ label {
 
 .form-input {
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: 8% auto;
     align-items: center;
     border: 1px solid #808080;
-/*    border-radius: 15px;*/
 }
 
 ::deep .form-input input {
     background: #e8f0fd;
     flex-grow: 1;
-/*    border-radius: 0 15px 15px 0;*/
+    margin: 0;
 }
 
 .form-input i {
-/*    font-size: 1.4rem;*/
     background: #fff;
-    width: 8%;
     margin-left: 0.4em;
 }
 

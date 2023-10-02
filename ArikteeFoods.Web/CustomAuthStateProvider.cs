@@ -16,14 +16,16 @@ namespace ArikteeFoods.Web
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            var token = await _localStorage.GetItemAsStringAsync("token");
+            var token = await _localStorage.GetItemAsStringAsync("authToken");
+            var name = await _localStorage.GetItemAsStringAsync("Fullname");
             var state = new AuthenticationState(new ClaimsPrincipal());
             if (token != null && !String.IsNullOrWhiteSpace(token))
             {
                 var identity = new ClaimsIdentity(new[]
                 {
-                    new Claim("token", token)
-                });
+                    new Claim("authToken", token),
+                    new Claim(ClaimTypes.Name, name ?? "")
+                }, "tokenauth_type");
                 state = new AuthenticationState(new ClaimsPrincipal(identity));
                 NotifyAuthenticationStateChanged(Task.FromResult(state));
             }

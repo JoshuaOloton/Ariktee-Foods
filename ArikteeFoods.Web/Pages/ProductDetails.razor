@@ -8,18 +8,26 @@
 }
 else
 {
-    <h3 class="mb-5">Product Details</h3>
-    <div class="row">
-        <div class="col-md-6 mb-4">
-            <img class="img-fluid" src="@FoodProduct.ProductImageUrl" alt="FoodProduct Image" />
+    @*<h4 class="mb-5 text-center">Product Details</h4>*@
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-4 mb-4">
+            <img class="img-thumbnail" src="@FoodProduct.ProductImageUrl" alt="FoodProduct Image" />
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <h4 class="mb-4">@FoodProduct.ProductName</h4>
             <p class="mb-4">@FoodProduct.ProductDescription</p>
-            <p>
-                <b>₦@FoodProduct.ProductPrice</b>
-            </p>
-            <button class="btn btn-success">
+            <p>Choose your preferred way to buy this item.</p>
+            <select class="form-select mb-5" @bind="selectedUnit">
+                @foreach (var productUnit in FoodProduct.ProductUnits)
+                {
+                    <option value="@productUnit.Unit">
+                        @productUnit.Unit
+                    </option>
+                }
+
+            </select>
+            <p><b>₦@FoodProduct.ProductUnits.Where(e => e.Unit == selectedUnit).Select(e => e.Price).FirstOrDefault() / @selectedUnit</b></p>
+            <button class="btn btn-success" @onclick="() => AddToCart_Click(FoodProduct)">
                 <i class="fa-solid fa-plus"></i>
                 Add To Cart
             </button>
@@ -27,6 +35,3 @@ else
     </div>
 }
 
-@code {
-
-}

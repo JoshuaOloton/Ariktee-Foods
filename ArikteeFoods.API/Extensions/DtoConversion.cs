@@ -13,8 +13,14 @@ namespace ArikteeFoods.API.Extensions
                 Id = product.Id,
                 ProductName = product.ProductName,
                 ProductDescription = product.ProductDescription,
-                ProductPrice = product.ProductPrice,
-                ProductImageUrl = product.ProductImageUrl
+                ProductImageUrl = product.ProductImageUrl,
+                ProductUnits = (from productUnit in product.ProductUnits
+                                select new ProductUnitDto
+                                {
+                                    Id = productUnit.Id,
+                                    Unit = productUnit.Unit,
+                                    Price = productUnit.UnitPrice
+                                }).ToList(),
             };
             return productDto;
         }
@@ -27,8 +33,14 @@ namespace ArikteeFoods.API.Extensions
                                   Id = product.Id,
                                   ProductName = product.ProductName,
                                   ProductDescription = product.ProductDescription,
-                                  ProductPrice = product.ProductPrice,
-                                  ProductImageUrl = product.ProductImageUrl
+                                  ProductImageUrl = product.ProductImageUrl,
+                                  ProductUnits = (from productUnit in product.ProductUnits
+                                                  select new ProductUnitDto
+                                                  {
+                                                      Id = productUnit.Id,
+                                                      Unit = productUnit.Unit,
+                                                      Price = productUnit.UnitPrice
+                                                  }).ToList(),
                               };
             return productDtos;
         }
@@ -38,26 +50,29 @@ namespace ArikteeFoods.API.Extensions
             return new UserDto
             {
                 UserId = user.Id,
-                Surname = user.Surname,
-                Firstname = user.Firstname,
+                Fullname = user.Fullname,
                 Email = user.Email,
                 PhoneNo = user.PhoneNo,
-                DeliveryAddress = user.DeliveryAddress,
-                PasswordHash = user.Passwordhash
+                PasswordHash = user.Passwordhash,
+                DeliveryAddresses = (from address in user.DeliveryAddresses
+                                    select new AddressDto
+                                    {
+                                        City = address.City,
+                                        HouseAddress = address.HouseAddress
+                                    }).ToList(),
             };
         }
 
-        public static UserDto ConvertToDto(this User user, String token)
+        public static UserDto ConvertToDto(this User user, String token, String refreshToken)
         {
             return new UserDto
             {
+                RefreshToken = refreshToken,
                 Token = token,
                 UserId = user.Id,
-                Surname = user.Surname,
-                Firstname = user.Firstname,
+                Fullname = user.Fullname,
                 Email = user.Email,
                 PhoneNo = user.PhoneNo,
-                DeliveryAddress = user.DeliveryAddress,
                 PasswordHash = user.Passwordhash
             };
         }
@@ -72,11 +87,11 @@ namespace ArikteeFoods.API.Extensions
                 Qty = vwCartItem.Qty,
                 ProductName = vwCartItem.ProductName,
                 ProductImageURL = vwCartItem.ProductImageUrl,
-                ProductPrice = vwCartItem.ProductPrice,
-                TotalPrice = vwCartItem.ProductPrice * vwCartItem.Qty,
+                ProductUnitPrice = vwCartItem.UnitPrice,
+                ProductUnit = vwCartItem.Unit,
+                TotalPrice = vwCartItem.UnitPrice * vwCartItem.Qty,
                 UserEmail = vwCartItem.Email,
-                UserFirstname = vwCartItem.Firstname,
-                UserSurname = vwCartItem.Surname
+                UserFullname = vwCartItem.Fullname
             };
         }
 
@@ -91,11 +106,44 @@ namespace ArikteeFoods.API.Extensions
                         Qty = vwCartItem.Qty,
                         ProductName = vwCartItem.ProductName,
                         ProductImageURL = vwCartItem.ProductImageUrl,
-                        ProductPrice = vwCartItem.ProductPrice,
-                        TotalPrice = vwCartItem.ProductPrice * vwCartItem.Qty,
+                        ProductUnitPrice = vwCartItem.UnitPrice,
+                        ProductUnit = vwCartItem.Unit,
+                        TotalPrice = vwCartItem.UnitPrice * vwCartItem.Qty,
                         UserEmail = vwCartItem.Email,
-                        UserFirstname = vwCartItem.Firstname,
-                        UserSurname = vwCartItem.Surname
+                        UserFullname = vwCartItem.Fullname
+                    });
+        }
+
+        public static ShoppingCartDto ConvertToDto(this Cart cart)
+        {
+            return new ShoppingCartDto
+            {
+                Id = cart.Id,
+                UserId = cart.UserId,
+                TransDate = cart.TransDate,
+                TransStatus = cart.TransStatus,
+                AuthorizationUrl = cart.AuthorizationUrl,
+                TransReference = cart.TransReference,
+                PaymentDate = cart.PaymentDate,
+                UserEmail = cart.User.Email,
+                UserFullname = cart.User.Fullname
+            };
+        }
+
+        public static IEnumerable<ShoppingCartDto> ConvertToDto(this IEnumerable<Cart> carts)
+        {
+            return (from cart in carts
+                    select new ShoppingCartDto
+                    {
+                        Id = cart.Id,
+                        UserId = cart.UserId,
+                        TransDate = cart.TransDate,
+                        TransStatus = cart.TransStatus,
+                        AuthorizationUrl = cart.AuthorizationUrl,
+                        TransReference = cart.TransReference,
+                        PaymentDate = cart.PaymentDate,
+                        UserEmail = cart.User.Email,
+                        UserFullname = cart.User.Fullname
                     });
         }
     }

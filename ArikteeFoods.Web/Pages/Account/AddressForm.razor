@@ -1,0 +1,40 @@
+﻿@using ArikteeFoods.Web.Shared
+
+<div class="login-page">
+    <div class="login-main">
+        <h3 class="main-title">Ariktee Foods</h3>
+        <div class="login-wrapper">
+            <EditForm Model="@newAddress" OnSubmit="AddAddress">
+                <DataAnnotationsValidator />
+                <div>
+                    <h5 class="login-title">Welcome Aboard</h5>
+                    <p class="login-description">Create your account with your email address and a secure password</p>
+                    <div class="form-input-section">
+                        <label for="streetaddress">House Address</label>
+                        <div class="form-input">
+                            <i class="fa-solid fa-house"></i>
+                            <InputText @bind-Value="newAddress.StreetAddress" id="streetaddress" />
+                            <ValidationMessage For="(() => newAddress.StreetAddress)" />
+                        </div>
+                    </div>
+                    <div class="form-input-section">
+                        <label for="city">City</label>
+                        <div class="form-input">
+                            <i class="fa-solid fa-city"></i>
+                            <InputText @bind-Value="newAddress.City" id="city" />
+                            <ValidationMessage For="(() => newAddress.City)" />
+                        </div>
+                    </div>
+
+                    <div class="btn-wrapper">
+                        <button type="submit">Create Account</button>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+        <div class="main-footer">
+            <a href="/">Home</a>
+            <p>I do not have an Account? <a href="/register">Sign up</a></p>
+        </div>
+    </div>
+</div>

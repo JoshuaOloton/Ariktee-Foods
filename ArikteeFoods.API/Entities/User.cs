@@ -13,15 +13,10 @@ public partial class User
     [Column("id")]
     public int Id { get; set; }
 
-    [Column("surname")]
-    [StringLength(50)]
+    [Column("fullname")]
+    [StringLength(127)]
     [Unicode(false)]
-    public string Surname { get; set; } = null!;
-
-    [Column("firstname")]
-    [StringLength(50)]
-    [Unicode(false)]
-    public string Firstname { get; set; } = null!;
+    public string Fullname { get; set; } = null!;
 
     [Column("email")]
     [StringLength(50)]
@@ -33,11 +28,6 @@ public partial class User
     [Unicode(false)]
     public string PhoneNo { get; set; } = null!;
 
-    [Column("deliveryAddress")]
-    [StringLength(255)]
-    [Unicode(false)]
-    public string DeliveryAddress { get; set; } = null!;
-
     [Column("password")]
     [StringLength(50)]
     public string Password { get; set; } = null!;
@@ -46,6 +36,19 @@ public partial class User
     [StringLength(512)]
     public string Passwordhash { get; set; } = null!;
 
+    [Column("refreshToken")]
+    [StringLength(512)]
+    public string? RefreshToken { get; set; }
+
+    [Column("tokenCreated", TypeName = "datetime")]
+    public DateTime? TokenCreated { get; set; }
+
+    [Column("tokenExpires", TypeName = "datetime")]
+    public DateTime? TokenExpires { get; set; }
+
     [InverseProperty("User")]
     public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
+
+    [InverseProperty("User")]
+    public virtual ICollection<DeliveryAddress> DeliveryAddresses { get; set; } = new List<DeliveryAddress>();
 }

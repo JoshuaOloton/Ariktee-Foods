@@ -7,26 +7,37 @@ a {
 }
 
 body {
-    background-color: #093a75;
+    /*    background-color: #093a75;*/
 }
 
 .main-title {
     text-align: center;
     color: white;
     font-size: 2rem;
+    /*    font-family: 'Bricolage Grotesque', sans-serif;*/
+    font-family: 'Itim', cursive;
 }
 
 .login-title {
-    color: grey;
-    text-align: center;
-    font-size: 1.5rem;
+    /*    color: grey;*/
+    /*    text-align: center;*/
+    /*    font-size: 1.5rem;*/
+    /*    font-weight: bold;*/
+    margin: 0;
+}
+
+.login-description {
+    font-family: 'Raleway', sans-serif;
+    /*    word-wrap: normal*/
+    font-size: 0.9rem;
     margin: 0;
 }
 
 .login-page {
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    /*    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);*/
+    background-color: rgba(0,0,0,0.9);
 }
 
 .login-main {
@@ -34,32 +45,38 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 30rem;
+    width: 20%;
+    min-width: 25rem;
 }
 
-.login-wrapper form {
+::deep .login-wrapper form > div {
     background: white;
     display: flex;
     flex-direction: column;
-    gap: 2em;
+    gap: 1.3em;
     width: 100%;
     /* height: 20rem; */
-    border-radius: 5px;
-    padding: 2em;
+    /*    border-radius: 5px;*/
+    padding: 3em 2em;
+    /*    border: 1px solid;*/
 }
 
-input, button {
-    padding: 1em;
+::deep input, button {
+    padding: 0.8em;
     border: none;
     outline: none;
+    /*    height: 3em;*/
+    font-size: 0.8rem;
 }
 
 button {
-    background: #093a75;
+    /*    background: #093a75;*/
+    background-image: linear-gradient(to right, rgb(5, 39, 103) 0%, #3a0647 70%);
     width: 100%;
     color: #fff;
-    font-size: 0.9rem;
-    border-radius: 10px;
+    font-size: 0.8rem;
+    margin: 1em 0;
+    /*    border-radius: 10px;*/
 }
 
     button:hover {
@@ -68,31 +85,29 @@ button {
 
 label {
     color: grey;
-    display: block;
-    font-size: 1.1rem;
-    margin-bottom: 1em;
+    display: silver;
+    font-size: 0.9rem;
+    margin-bottom: 0;
 }
 
 .form-input {
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: 8% auto;
     align-items: center;
     border: 1px solid #808080;
-    border-radius: 15px;
 }
 
-    .form-input input {
-        background: #e8f0fd;
-        flex-grow: 1;
-        border-radius: 0 15px 15px 0;
-    }
+::deep .form-input input {
+    background: #e8f0fd;
+    flex-grow: 1;
+    margin: 0;
+}
 
-    .form-input i {
-        font-size: 1.4rem;
-        background: #fff;
-        width: 8%;
-        margin-left: 0.4em;
-    }
+.form-input i {
+    background: #fff;
+    margin-left: 0.4em;
+}
 
 .input-extras {
     display: flex;
@@ -115,12 +130,5 @@ label {
 .main-footer {
     text-align: center;
     color: #fff;
+    margin-top: 1em;
 }
-
-    .main-footer a {
-        color: #fff;
-    }
-
-    .main-footer #home {
-        color: #a4c9fb;
-    }

@@ -6,34 +6,61 @@
     <div class="login-main">
         <h3 class="main-title">Ariktee Foods</h3>
         <div class="login-wrapper">
-            <form action="">
-                <h5 class="login-title">REGISTER</h5>
-                <div class="form-input-section">
-                    <label for="email">Email</label>
-                    <div class="form-input">
-                        <i class="fa-regular fa-envelope"></i>
-                        <input type="email" name="" id="email" required>
+            <EditForm Model="@userRegister" OnValidSubmit="RegisterUser">
+                <DataAnnotationsValidator />
+                <div>
+                    <h5 class="login-title">Welcome Aboard</h5>
+                    <p class="login-description">Create your account with your email address and a secure password</p>
+                    <div class="form-input-section">
+                        <label for="fullname">Fullname</label>
+                        <div class="form-input">
+                            <i class="fa-regular fa-envelope"></i>
+                            <InputText @bind-Value="userRegister.FullName" id="fullname" />
+                            <ValidationMessage For="(() => userRegister.FullName)" />
+                        </div>
+                    </div>
+                    <div class="form-input-section">
+                        <label for="email">Email</label>
+                        <div class="form-input">
+                            <i class="fa-regular fa-envelope"></i>
+                            <InputText @bind-Value="userRegister.Email" id="email" />
+                            <ValidationMessage For="(() => userRegister.Email)" />
+                        </div>
+                    </div>
+                    <div class="form-input-section">
+                        <label for="phoneno">Whatsapp Phone number</label>
+                        <div class="form-input">
+                            <i class="fa-solid fa-phone"></i>
+                            <InputText @bind-Value="userRegister.PhoneNo" id="phoneno" />
+                            <ValidationMessage For="(() => userRegister.PhoneNo)" />
+                        </div>
+                    </div>
+                    <div class="form-input-section">
+                        <label for="password">Password</label>
+                        <div class="form-input">
+                            <i class="fa-solid fa-key"></i>
+                            <InputText @bind-Value="userRegister.Password" id="password" type="password" />
+                            <ValidationMessage For="(() => userRegister.Password)" />
+                        </div>
+                    </div>
+                    <div class="form-input-section">
+                        <label for="confirm-password">Confirm Password</label>
+                        <div class="form-input">
+                            <i class="fa-solid fa-key"></i>
+                            <InputText @bind-Value="userRegister.ConfirmPassword" id="confirm-password" type="password" />
+                            <ValidationMessage For="(() => userRegister.ConfirmPassword)" />
+                        </div>
+                    </div>
+                    
+                    <div class="btn-wrapper">
+                        <button type="submit">Create Account</button>
                     </div>
                 </div>
-                <div class="form-input-section">
-                    <label for="password">Password</label>
-                    <a href="#" class="reset">Reset Password</a>
-                    <div class="form-input">
-                        <i class="fa-solid fa-key"></i>
-                        <input type="password" name="" id="password" minlength="8" required>
-                    </div>
-                </div>
-                <div class="btn-wrapper">
-                    <button type="submit">Login</button>
-                </div>
-            </form>
+            </EditForm>
         </div>
         <div class="main-footer">
-            <p>I already have an Account? <a href="/register">Log In</a></p>
+            <a href="/">Home</a>
+            <p>Already have an Account? <a href="/login">Log in</a></p>
         </div>
     </div>
 </div>
-
-@code {
-
-}

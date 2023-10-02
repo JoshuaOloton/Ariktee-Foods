@@ -1,18 +1,25 @@
-﻿@page "/"
+﻿@page "/home"
 @using Blazored.Toast
 @using Blazored.Toast.Services
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.Authorization
+@attribute [Authorize]
 
-@if (!FoodProducts.Any())
+@if (!FoodProducts.Any() && ErrorMessage == null)
 {
     <LoadingSpinner />
+}
+else if (ErrorMessage != null)
+{
+    <DisplayError ErrMessage="@ErrorMessage" />
 }
 else
 {
     <h3 class="mb-2">Products</h3>
-    <div class="text-center">
+    <div class="search-bar text-center mb-4">
         <input @bind-value="@searchText" @bind-value:event="oninput"
-               class="mb-4"
-               placeholder="Search by Product Name" />
+               placeholder="Search..." />
+        <i class="fa-solid fa-magnifying-glass"></i>
     </div>
     if (FoodProducts.Any() && !FilteredProducts.Any())
     {

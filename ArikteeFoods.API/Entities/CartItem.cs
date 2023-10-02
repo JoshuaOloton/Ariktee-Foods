@@ -16,7 +16,11 @@ public partial class CartItem
 
     public int ProductId { get; set; }
 
+    public int UnitId { get; set; }
+
     public int Qty { get; set; }
+
+    public int UnitAmount { get; set; }
 
     [ForeignKey("CartId")]
     [InverseProperty("CartItems")]
@@ -25,4 +29,8 @@ public partial class CartItem
     [ForeignKey("ProductId")]
     [InverseProperty("CartItems")]
     public virtual Product Product { get; set; } = null!;
+
+    [ForeignKey("UnitId")]
+    [InverseProperty("CartItems")]
+    public virtual ProductUnit Unit { get; set; } = null!;
 }

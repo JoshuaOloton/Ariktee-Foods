@@ -11,7 +11,6 @@ namespace ArikteeFoods.Web.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [MinLength(6, ErrorMessage = "Password should not be less than characters long.")]
         public String Password { get; set; }
     }
 }

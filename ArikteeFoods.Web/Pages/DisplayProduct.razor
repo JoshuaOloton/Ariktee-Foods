@@ -1,19 +1,12 @@
 ﻿@using ArikteeFoods.Models.DTOs;
-<div class="col-md-6 col-lg-3 mb-2">
-    <a href="/Product/@Product.Id" style="color: #112060;">
-        <div class="card">
-            <div class="card-body">
-                <img src="@Product.ProductImageUrl" alt="@Product.ProductName image" class="img-fluid" />
-                <h5 class="card-title mt-2">@Product.ProductName</h5>
-                <p class="card-text price">
-                    <b>₦@Product.ProductPrice</b>
-                </p>
-            </div>
+<div class="col-md-6 col-lg-4 col-xl-3 mb-2">
+    <div class="card">
+        <div class="card-body text-center">
+            <img src="@Product.ProductImageUrl" alt="@Product.ProductName image" class="img-fluid" />
+            <h6 class="card-title fw-bold mt-3">@Product.ProductName</h6>
+            <p>From ₦@BasePrice / @BaseUnit</p>
+            <a href="/Product/@Product.Id" class="add-to-cart btn">View Product</a>
         </div>
-    </a>
+    </div>
 </div>
 
-@code {
-    [Parameter]
-    public ProductDto Product { get; set; }
-}

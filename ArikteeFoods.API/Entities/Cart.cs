@@ -19,6 +19,19 @@ public partial class Cart
 
     public int TransStatus { get; set; }
 
+    [StringLength(255)]
+    public string? AuthorizationUrl { get; set; }
+
+    [StringLength(50)]
+    public string? TransReference { get; set; }
+
+    [Column(TypeName = "date")]
+    public DateTime? PaymentDate { get; set; }
+
+    [Column("deliveryAddress")]
+    [StringLength(512)]
+    public string? DeliveryAddress { get; set; }
+
     [InverseProperty("Cart")]
     public virtual ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
 

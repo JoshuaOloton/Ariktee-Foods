@@ -1,0 +1,65 @@
+﻿@page "/ShoppingCart"
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize]
+
+@if (ShoppingCartItems == null)
+{
+    <LoadingSpinner />
+}
+else
+{
+    if (ShoppingCartItems.Count < 1)
+    {
+        <h4 class="mb-5 text-center">Shopping Cart</h4>
+        <p>Your shopping cart is empty.</p>
+    }
+    else
+    {
+        <div class="row my-5 justify-content-center">
+            <div class="col-xl-8">
+                <h4>Shopping Cart</h4>
+                <a href="/home" class="app-link">Continue shopping</a>
+            </div>
+        </div>
+        <div class="row mb-4 justify-content-center border">
+            <div class="col-md-9 col-xl-6">
+                @foreach (var item in ShoppingCartItems)
+                {
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <img class="img-thumbnail" width="300" alt="Product image" src="@item.ProductImageURL" />
+                        </div>
+                        <div class="col-md-8">
+                            <h5 class="mb-2">@item.ProductName</h5>
+                            <span>
+                                <b>₦@(item.ProductUnitPrice * item.Qty)</b>
+                            </span>
+                            <span class="quantity m-3">
+                                <i class="fa-solid fa-minus me-4 text-danger" @onclick="() => UpdateQty_Click(item, -1)"></i>
+                                @item.Qty
+                                <i class="fa-solid fa-plus ms-4 me-2 text-success" @onclick="() => UpdateQty_Click(item, 1)"></i>
+                                <b>@item.ProductUnit</b>
+                            </span>
+                            <button class="btn btn-danger d-block mt-3" @onclick="() => DeleteCartItem_Click(item)">
+                                <span class="oi oi-trash"></span>
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-md-3 col-xl-2">
+                <h5 class="mb-3">Cart Summary</h5>
+                <div class="mt-2">
+                    <p>Total - (@TotalQuantity units) <b>₦@TotalPrice</b></p>
+                    <a href="/Checkout" class="btn btn-success mb-2">
+                        <span class="oi oi-credit-card"></span>&nbsp;Proceed to checkout
+                    </a>
+                    <a href="/home" class="btn btn-primary mb-2">
+                        <i class="fa-solid fa-arrow-left"></i>&nbsp;Continue shopping
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+    
+}

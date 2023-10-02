@@ -9,6 +9,6 @@ namespace ArikteeFoods.API.Repositories.Contracts
 
         Task<IEnumerable<Product>> GetProducts();
 
-        Task<Product> AddProduct(ProductToAddDto productToAddDto);
+        //Task<Product> AddProduct(ProductToAddDto productToAddDto);
     }
 }

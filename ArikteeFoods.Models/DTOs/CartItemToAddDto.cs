@@ -10,6 +10,7 @@ namespace ArikteeFoods.Models.DTOs
     {
         public int CartId { get; set; }
         public int ProductId { get; set; }
-        public int Qty { get; set; }
+        public int UnitId { get; set; }
+        public int UnitAmount { get; set; }
     }
 }

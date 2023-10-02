@@ -1,0 +1,29 @@
+﻿@using ArikteeFoods.Web.Services
+@using ArikteeFoods.Web.Services.Contracts
+@inject IShoppingCartService ShoppingCartService
+@implements IDisposable
+
+<a href="/ShoppingCart" class="btn btn-info" style="text-decoration: none;">
+    <i class="fa-solid fa-cart-shopping"></i>&nbsp;Cart
+    <span class="badge bg-dark">@TotalCartQuantity</span>
+</a>
+
+@code {
+    public int TotalCartQuantity { get; set; }
+
+    protected override void OnInitialized()
+    {
+        ShoppingCartService.ShoppingCartChanged += OnShoppingCartChanged;
+    }
+
+    void OnShoppingCartChanged(object source, ShoppingCartEventArgs e)
+    {
+        TotalCartQuantity = e.TotalQuantity;
+        StateHasChanged();
+    }
+
+    void IDisposable.Dispose()
+    {
+        ShoppingCartService.ShoppingCartChanged -= OnShoppingCartChanged;
+    }
+}

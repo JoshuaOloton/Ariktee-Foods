@@ -1,0 +1,8 @@
+﻿.quantity i {
+    cursor: pointer;
+    transition: transform 0.2s ease-in;
+}
+
+.quantity i:hover {
+    transform: scale(1.2);
+}

@@ -1,0 +1,101 @@
+﻿@page "/Checkout"
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize]
+
+@if (ShoppingCartItems == null)
+{
+    <LoadingSpinner />
+}
+else
+{
+    <div class="row my-5 justify-content-center">
+        <div class="col col-xl-10">
+            <h4>Checkout</h4>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-xl-5">
+            <div class="mb-5 payment-method">
+                <h6 class="mb-3 fw-bold">Payment Method</h6>
+                <button type="submit" form="address-select" class="address-select">
+                    <div class="paystack-logo">
+                        Pay with&nbsp;
+                        <img src="/Images/paystack/paystack-2.png" alt="" width="100" />
+                    </div>
+                </button>
+            </div>
+            <div class="mb-5 delivery-address">
+                <div class="col-8">
+                    @if (ShowAddressForm == false)
+                    {
+                        <EditForm Model="@selectAddress" OnValidSubmit="() => ProceedToCheckout(ShoppingCartItems[0].CartId)" id="address-select">
+                            <DataAnnotationsValidator />
+                            <InputSelect @bind-Value="selectAddress.DeliveryAddress" class="form-select">
+                                <option value="">Select address ...</option>
+                                @foreach (var address in ShoppingCartUser.DeliveryAddresses)
+                                {
+                                    <option>@address.HouseAddress</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="(() => selectAddress.DeliveryAddress)" />
+                            <button type="button" class="btn btn-dark mt-4" @onclick="() => ShowAddressForm = true">
+                                <i class="fa-solid fa-circle-plus"></i>
+                                Add address
+                            </button>
+                        </EditForm>
+                    }
+                    else
+                    {
+                        <EditForm Model="newAddress" OnValidSubmit="AddAddress">
+                            <DataAnnotationsValidator />
+                            <InputText @bind-Value="newAddress.StreetAddress" id="address" placeholder="Enter delivery address" class="form-control" />
+                            <ValidationMessage For="(() => newAddress.StreetAddress)" />
+                            <InputSelect @bind-Value="newAddress.City" class="form-select mt-3" id="city">
+                                <option value="">Select city ...</option>
+                                <option value="Ibadan">Ibadan</option>
+                            </InputSelect>
+                            <ValidationMessage For="(() => newAddress.City)" />
+                            <div class="btn-wrapper mt-4">
+                                <a class="app-link me-1" @onclick="() => ShowAddressForm = false">Go Back</a>
+                                <button type="submit" class="btn btn-sm btn-success">Save</button>
+                            </div>
+                        </EditForm>
+                    }
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-5">
+            <h4 class="mb-4">Payment Summary</h4>
+            @if (ShoppingCartItems.Count() > 0)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ShoppingCartItems)
+                        {
+                            <tr>
+                                <td>@item.Qty x @item.ProductName</td>
+                                <td>₦@item.TotalPrice.ToString()</td>
+                            </tr>
+                        }
+                        <tr>
+                            <td><b>Total</b></td>
+                            <td><b>₦@PaymentAmount.ToString()</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>You currently have no items in your shopping cart</p>
+            }
+        </div>
+    </div>
+    
+}

@@ -22,8 +22,9 @@ public partial class Product
     [StringLength(50)]
     public string? ProductImageUrl { get; set; }
 
-    public int ProductPrice { get; set; }
-
     [InverseProperty("Product")]
     public virtual ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
+
+    [InverseProperty("Product")]
+    public virtual ICollection<ProductUnit> ProductUnits { get; set; } = new List<ProductUnit>();
 }

@@ -1,10 +1,21 @@
 ﻿input {
-    border: 1px solid #263972;
     padding: 0.8em;
-    width: calc(100% / 4);
+    margin: 0;
+    border: none;
+    outline: none;
+    width: 80%;
 }
 
 ::placeholder {
     color: lightslategrey;
     font-size: 0.9rem;
+}
+
+.search-bar {
+    padding: 0 0.2em;
+    border: 1px solid #103100;
+    background-color: #fff;
+    margin: 0 auto;
+    width: calc(100% / 4);
+    min-width: 200px;
 }

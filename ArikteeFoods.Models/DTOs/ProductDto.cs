@@ -18,7 +18,14 @@ namespace ArikteeFoods.Models.DTOs
 
         public string? ProductImageUrl { get; set; }
 
-        public int ProductPrice { get; set; }
+        public List<ProductUnitDto> ProductUnits { get; set; }
+    }
 
+    public class ProductUnitDto
+    {
+        public int Id { get; set; }
+        public string Unit { get; set; }
+        public int Price { get; set;
+        }
     }
 }

@@ -20,14 +20,14 @@ namespace ArikteeFoods.Models.DTOs
 
         public string ProductImageURL { get; set; }
 
-        public int ProductPrice { get; set; }
+        public String ProductUnit { get; set; }
+
+        public int ProductUnitPrice { get; set; }
 
         public int TotalPrice { get; set; }
 
         public String UserEmail { get; set; }
 
-        public String UserFirstname { get; set; }
-
-        public String UserSurname { get; set; }
+        public String UserFullname { get; set; }
     }
 }

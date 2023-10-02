@@ -1,0 +1,31 @@
+﻿@page "/TransactionDetails"
+@using ArikteeFoods.Models.DTOs;
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize]
+
+@if (ErrorMessage != null)
+{
+    <DisplayError ErrMessage="@ErrorMessage" />
+}
+else if (TransDetails != null)
+{
+    @foreach (var detail in TransDetails)
+    {
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <img src="@detail.ProductImageURL" alt="product image" class="img-thumbnail" width="150" />
+                    </div>
+                    <div class="col align-self-center">
+                        <p class="fw-bold m-0">@detail.ProductName</p>
+                        <span>@detail.Qty x ₦@detail.ProductUnitPrice</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col align-self-center">
+                <p class="fw-bold text-end m-0 align-bottom">₦@(detail.Qty * detail.ProductUnitPrice)</p>
+            </div>
+        </div>
+    }
+}
